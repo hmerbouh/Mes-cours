@@ -1,12 +1,12 @@
-const http = require('http');
+const express = require('express');
 
-const hostName = '127.0.0.1';
-const port = '8080';
+const app = express();
 
-const server = http.createServer(function(requete, reponse){
-    reponse.end('Bonjour du serveur node')
-});
+app.set('view engine', 'ejs');
+app.set('view', __dirname + '/../public/views');
 
-server.listen(port, hostName, function(){
-    console.log('Le serveur écoute sur le port : '+ port)
-     });
+app.use(express.static(__dirname + '/../public'));
+
+require('./route')(app);
+
+module.exports = app;
